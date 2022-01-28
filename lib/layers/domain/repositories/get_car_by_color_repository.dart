@@ -1,5 +1,5 @@
 import 'package:clean_architecture/layers/domain/entities/car_entity.dart';
 
-abstract class GetCarByColorUseCase {
+abstract class GetCarByColorRepository {
   CarEntity call(String color);
 }
