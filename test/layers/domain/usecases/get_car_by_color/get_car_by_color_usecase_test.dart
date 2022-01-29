@@ -3,6 +3,7 @@ import 'package:clean_architecture/layers/data/repositories/get_car_by_color_rep
 import 'package:clean_architecture/layers/domain/entities/car_entity.dart';
 import 'package:clean_architecture/layers/domain/usecases/get_car_by_color/get_car_by_color_usecase.dart';
 import 'package:clean_architecture/layers/domain/usecases/get_car_by_color/get_car_by_color_usecase_imp.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
@@ -12,7 +13,7 @@ main() {
     );
 
     var result = useCase('Azul');
-    expect(result, isInstanceOf<CarEntity>());
+    expect(result.fold(id, (r) => r), isInstanceOf<CarEntity>());
   });
 
   test('Deve retornar um Carro de 4 portas quando vermelho', () {
@@ -21,7 +22,7 @@ main() {
     );
 
     var result = useCase('Vermelho');
-    expect(result.quantityDoors, 4);
+    expect(result.fold(id, (r) => r.quantityDoors), 4);
   });
 
   test(
@@ -32,6 +33,6 @@ main() {
     );
 
     var result = useCase('Verde');
-    expect(result.quantityDoors, 2);
+    expect(result.fold(id, (r) => r.quantityDoors), 2);
   });
 }

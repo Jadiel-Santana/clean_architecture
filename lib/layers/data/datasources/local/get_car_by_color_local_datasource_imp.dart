@@ -1,5 +1,6 @@
 import 'package:clean_architecture/layers/data/datasources/get_car_by_color_datasource.dart';
 import 'package:clean_architecture/layers/data/dtos/car_dto.dart';
+import 'package:dartz/dartz.dart';
 
 class GetCarByColorLocalDataSourceImp implements GetCarByColorDataSource {
   final jsonRed = {
@@ -15,10 +16,14 @@ class GetCarByColorLocalDataSourceImp implements GetCarByColorDataSource {
   };
 
   @override
-  CarDto call(String color) {
-    if (color.compareTo('Vermelho') == 0) {
-      return CarDto.fromMap(jsonRed);
+  Either<Exception, CarDto> call(String color) {
+    try {
+      if (color.compareTo('Vermelho') == 0) {
+        return Right(CarDto.fromMap(jsonRed));
+      }
+      return Right(CarDto.fromMap(jsonAny));
+    } catch(e) {
+      return Left(Exception('Error in datasource'));
     }
-    return CarDto.fromMap(jsonAny);
   }
 }
