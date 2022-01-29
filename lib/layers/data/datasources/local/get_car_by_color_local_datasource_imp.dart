@@ -5,7 +5,7 @@ class GetCarByColorLocalDataSourceImp implements GetCarByColorDataSource {
   final jsonRed = {
     'placa': 'ABC-1234',
     'quantidadeDePortas': 4,
-    'valorFinal': 500.00,
+    'valorFinal': 5000.00,
   };
 
   final jsonAny = {
@@ -16,7 +16,7 @@ class GetCarByColorLocalDataSourceImp implements GetCarByColorDataSource {
 
   @override
   CarDto call(String color) {
-    if (color.contains('Vermelho')) {
+    if (color.compareTo('Vermelho') == 0) {
       return CarDto.fromMap(jsonRed);
     }
     return CarDto.fromMap(jsonAny);
